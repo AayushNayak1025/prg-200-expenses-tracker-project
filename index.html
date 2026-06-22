@@ -3,80 +3,77 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>💰 Expense Tracker</title>
+  <title>Expense Tracker</title>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #0f172a;
-      color: #e2e8f0;
+      background: #f1f5f9;
+      color: #1e293b;
       min-height: 100vh;
     }
 
-    /* ── NAVBAR ── */
     .navbar {
-      background: #1e293b;
+      background: #ffffff;
       padding: 16px 32px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #334155;
+      border-bottom: 1px solid #e2e8f0;
       position: sticky;
       top: 0;
       z-index: 100;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     }
-    .navbar h1 { font-size: 22px; color: #38bdf8; }
-    .nav-user {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .nav-user span { color: #94a3b8; font-size: 14px; }
+    .navbar h1 { font-size: 22px; color: #0284c7; font-weight: 700; }
+    .nav-user { display: flex; align-items: center; gap: 12px; }
+    .nav-user span { color: #64748b; font-size: 14px; }
     .btn-logout {
       background: #ef4444;
       color: white;
       border: none;
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: 8px;
       cursor: pointer;
       font-size: 13px;
+      font-weight: 600;
     }
     .btn-logout:hover { background: #dc2626; }
 
-    /* ── AUTH SCREEN ── */
     .auth-screen {
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      background: linear-gradient(135deg, #dbeafe 0%, #f0f9ff 100%);
     }
     .auth-card {
-      background: #1e293b;
+      background: #ffffff;
       padding: 40px;
       border-radius: 16px;
-      width: 400px;
-      border: 1px solid #334155;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      width: 420px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.10);
     }
     .auth-card h2 {
       text-align: center;
-      margin-bottom: 8px;
-      color: #38bdf8;
-      font-size: 24px;
+      margin-bottom: 6px;
+      color: #0284c7;
+      font-size: 26px;
+      font-weight: 700;
     }
     .auth-card p {
       text-align: center;
-      color: #64748b;
+      color: #94a3b8;
       margin-bottom: 28px;
       font-size: 14px;
     }
     .auth-tabs {
       display: flex;
       margin-bottom: 24px;
-      background: #0f172a;
+      background: #f1f5f9;
       border-radius: 8px;
       padding: 4px;
     }
@@ -89,47 +86,49 @@
       font-size: 14px;
       color: #64748b;
       transition: all 0.2s;
+      font-weight: 500;
     }
     .auth-tab.active {
-      background: #38bdf8;
-      color: #0f172a;
+      background: #0284c7;
+      color: #ffffff;
       font-weight: 600;
     }
 
-    /* ── FORM ELEMENTS ── */
     .form-group { margin-bottom: 16px; }
     .form-group label {
       display: block;
       margin-bottom: 6px;
       font-size: 13px;
-      color: #94a3b8;
+      color: #475569;
+      font-weight: 500;
     }
     .form-group input,
     .form-group select,
     .form-group textarea {
       width: 100%;
-      padding: 12px 14px;
-      background: #0f172a;
-      border: 1px solid #334155;
+      padding: 11px 14px;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
       border-radius: 8px;
-      color: #e2e8f0;
+      color: #1e293b;
       font-size: 14px;
-      transition: border 0.2s;
+      transition: border 0.2s, box-shadow 0.2s;
     }
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
       outline: none;
-      border-color: #38bdf8;
+      border-color: #0284c7;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(2,132,199,0.12);
     }
-    .form-group select option { background: #1e293b; }
+    .form-group select option { background: #ffffff; color: #1e293b; }
 
-    /* ── BUTTONS ── */
     .btn-primary {
       width: 100%;
       padding: 12px;
-      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
-      color: #0f172a;
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      color: #ffffff;
       border: none;
       border-radius: 8px;
       font-size: 15px;
@@ -139,28 +138,28 @@
     }
     .btn-primary:hover { opacity: 0.9; }
     .btn-danger {
-      padding: 8px 16px;
-      background: #ef4444;
-      color: white;
-      border: none;
+      padding: 6px 14px;
+      background: #fef2f2;
+      color: #ef4444;
+      border: 1px solid #fecaca;
       border-radius: 6px;
       cursor: pointer;
       font-size: 13px;
+      font-weight: 500;
     }
-    .btn-danger:hover { background: #dc2626; }
+    .btn-danger:hover { background: #ef4444; color: white; }
 
-    /* ── MAIN LAYOUT ── */
     .main-layout { display: flex; min-height: calc(100vh - 61px); }
 
-    /* ── SIDEBAR ── */
     .sidebar {
       width: 220px;
-      background: #1e293b;
-      border-right: 1px solid #334155;
+      background: #ffffff;
+      border-right: 1px solid #e2e8f0;
       padding: 24px 0;
       position: sticky;
       top: 61px;
       height: calc(100vh - 61px);
+      box-shadow: 1px 0 4px rgba(0,0,0,0.04);
     }
     .sidebar-item {
       padding: 12px 24px;
@@ -169,27 +168,96 @@
       align-items: center;
       gap: 10px;
       font-size: 14px;
-      color: #94a3b8;
+      color: #64748b;
       transition: all 0.2s;
       border-left: 3px solid transparent;
+      font-weight: 500;
     }
-    .sidebar-item:hover { background: #0f172a; color: #e2e8f0; }
+    .sidebar-item:hover { background: #f0f9ff; color: #0284c7; }
     .sidebar-item.active {
-      background: #0f172a;
-      color: #38bdf8;
-      border-left-color: #38bdf8;
+      background: #f0f9ff;
+      color: #0284c7;
+      border-left-color: #0284c7;
       font-weight: 600;
     }
-    .sidebar-item span.icon { font-size: 18px; }
 
-    /* ── CONTENT ── */
-    .content { flex: 1; padding: 32px; overflow-y: auto; }
+    .content { flex: 1; padding: 32px; overflow-y: auto; background: #f1f5f9; }
 
-    /* ── PAGES ── */
     .page { display: none; }
     .page.active { display: block; }
 
-    /* ── METRIC CARDS ── */
+    .page-heading {
+      font-size: 22px;
+      font-weight: 700;
+      color: #0284c7;
+      margin-bottom: 4px;
+    }
+
+    /* Welcome Banner */
+    .welcome-banner {
+      background: linear-gradient(135deg, #0284c7, #0369a1);
+      border-radius: 12px;
+      padding: 20px 28px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: white;
+    }
+    .welcome-banner h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .welcome-banner p {
+      font-size: 13px;
+      opacity: 0.85;
+    }
+    .welcome-banner .date-display {
+      font-size: 13px;
+      opacity: 0.85;
+      text-align: right;
+    }
+
+    /* Top Insights */
+    .insights-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .insight-card {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 16px 18px;
+      border: 1px solid #e2e8f0;
+      border-left: 4px solid #0284c7;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+    .insight-card.green { border-left-color: #16a34a; }
+    .insight-card.red { border-left-color: #dc2626; }
+    .insight-card.blue { border-left-color: #0284c7; }
+    .insight-card.orange { border-left-color: #ea580c; }
+    .insight-card.purple { border-left-color: #7c3aed; }
+    .insight-card .insight-label {
+      font-size: 12px;
+      color: #94a3b8;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      margin-bottom: 6px;
+    }
+    .insight-card .insight-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+    .insight-card .insight-sub {
+      font-size: 12px;
+      color: #64748b;
+    }
+
     .metrics-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -197,28 +265,29 @@
       margin-bottom: 28px;
     }
     .metric-card {
-      background: #1e293b;
+      background: #ffffff;
       border-radius: 12px;
       padding: 20px;
-      border: 1px solid #334155;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     }
     .metric-card .label {
       font-size: 12px;
-      color: #64748b;
+      color: #94a3b8;
       margin-bottom: 8px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      font-weight: 600;
     }
     .metric-card .value {
       font-size: 26px;
       font-weight: 700;
-      color: #e2e8f0;
+      color: #1e293b;
     }
-    .metric-card .value.income { color: #22c55e; }
-    .metric-card .value.expense { color: #ef4444; }
-    .metric-card .value.balance { color: #38bdf8; }
+    .metric-card .value.income { color: #16a34a; }
+    .metric-card .value.expense { color: #dc2626; }
+    .metric-card .value.balance { color: #0284c7; }
 
-    /* ── CHARTS GRID ── */
     .charts-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -226,29 +295,32 @@
       margin-bottom: 28px;
     }
     .chart-card {
-      background: #1e293b;
+      background: #ffffff;
       border-radius: 12px;
       padding: 20px;
-      border: 1px solid #334155;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
     }
     .chart-card h3 {
       font-size: 14px;
-      color: #94a3b8;
+      color: #475569;
       margin-bottom: 16px;
+      font-weight: 600;
     }
 
-    /* ── TABLE ── */
     .table-card {
-      background: #1e293b;
+      background: #ffffff;
       border-radius: 12px;
       padding: 20px;
-      border: 1px solid #334155;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
       margin-bottom: 20px;
     }
     .table-card h3 {
       font-size: 16px;
       margin-bottom: 16px;
-      color: #e2e8f0;
+      color: #1e293b;
+      font-weight: 600;
     }
     .filters {
       display: flex;
@@ -258,53 +330,49 @@
     }
     .filters select {
       padding: 8px 12px;
-      background: #0f172a;
-      border: 1px solid #334155;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
       border-radius: 8px;
-      color: #e2e8f0;
+      color: #1e293b;
       font-size: 13px;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
     thead th {
       padding: 10px 12px;
       text-align: left;
-      color: #64748b;
-      border-bottom: 1px solid #334155;
+      color: #94a3b8;
+      border-bottom: 2px solid #f1f5f9;
       font-weight: 600;
       text-transform: uppercase;
       font-size: 11px;
       letter-spacing: 0.5px;
+      background: #f8fafc;
     }
-    tbody tr {
-      border-bottom: 1px solid #1e293b;
-      transition: background 0.15s;
-    }
-    tbody tr:hover { background: #0f172a; }
-    tbody td { padding: 12px; color: #cbd5e1; }
+    tbody tr { border-bottom: 1px solid #f1f5f9; transition: background 0.15s; }
+    tbody tr:hover { background: #f0f9ff; }
+    tbody td { padding: 12px; color: #334155; }
     .badge {
       padding: 3px 10px;
       border-radius: 20px;
       font-size: 11px;
       font-weight: 600;
     }
-    .badge.income { background: #14532d; color: #22c55e; }
-    .badge.expense { background: #450a0a; color: #ef4444; }
+    .badge.income { background: #dcfce7; color: #16a34a; }
+    .badge.expense { background: #fee2e2; color: #dc2626; }
 
-    /* ── ADD FORM ── */
     .add-form-card {
-      background: #1e293b;
+      background: #ffffff;
       border-radius: 12px;
       padding: 32px;
-      border: 1px solid #334155;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
       max-width: 600px;
     }
     .add-form-card h2 {
       margin-bottom: 24px;
-      color: #38bdf8;
+      color: #0284c7;
+      font-size: 20px;
+      font-weight: 700;
     }
     .form-row {
       display: grid;
@@ -312,25 +380,153 @@
       gap: 16px;
     }
 
-    /* ── CHATBOT ── */
+    /* Calendar */
+    .calendar-card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 24px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .calendar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .calendar-header h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .cal-nav {
+      display: flex;
+      gap: 8px;
+    }
+    .cal-nav button {
+      padding: 6px 14px;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      color: #475569;
+      font-weight: 600;
+    }
+    .cal-nav button:hover { background: #dbeafe; color: #0284c7; }
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+    .cal-day-name {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      padding: 6px 0;
+      text-transform: uppercase;
+    }
+    .cal-day {
+      text-align: center;
+      padding: 8px 4px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      color: #475569;
+      transition: all 0.15s;
+      min-height: 52px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 3px;
+      border: 1px solid transparent;
+    }
+    .cal-day:hover { background: #f0f9ff; border-color: #bae6fd; color: #0284c7; }
+    .cal-day.today {
+      background: #dbeafe;
+      color: #0284c7;
+      font-weight: 700;
+      border-color: #93c5fd;
+    }
+    .cal-day.has-transaction { font-weight: 600; }
+    .cal-day.selected {
+      background: #0284c7;
+      color: white;
+      border-color: #0284c7;
+    }
+    .cal-day.empty { cursor: default; }
+    .cal-day.empty:hover { background: transparent; border-color: transparent; }
+    .cal-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .cal-dot.income { background: #16a34a; }
+    .cal-dot.expense { background: #dc2626; }
+    .cal-dots { display: flex; gap: 2px; justify-content: center; }
+
+    .day-transactions {
+      margin-top: 20px;
+      padding: 16px;
+      background: #f8fafc;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+    .day-transactions h4 {
+      font-size: 14px;
+      color: #0284c7;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .day-tx-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 13px;
+    }
+    .day-tx-item:last-child { border-bottom: none; }
+    .day-tx-title { color: #334155; font-weight: 500; }
+    .day-tx-cat { color: #94a3b8; font-size: 12px; }
+    .day-tx-amount { font-weight: 700; }
+    .day-tx-amount.income { color: #16a34a; }
+    .day-tx-amount.expense { color: #dc2626; }
+
     .chat-container {
       display: flex;
       flex-direction: column;
       height: calc(100vh - 180px);
-      background: #1e293b;
+      background: #ffffff;
       border-radius: 12px;
-      border: 1px solid #334155;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
       overflow: hidden;
     }
     .chat-header {
       padding: 16px 20px;
-      border-bottom: 1px solid #334155;
+      border-bottom: 1px solid #e2e8f0;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      background: #f8fafc;
     }
-    .chat-header h3 { font-size: 15px; color: #38bdf8; }
-    .chat-header p { font-size: 12px; color: #64748b; }
+    .chat-header-icon {
+      width: 40px; height: 40px;
+      background: #dbeafe;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: #0284c7;
+    }
+    .chat-header h3 { font-size: 15px; color: #0284c7; font-weight: 600; }
+    .chat-header p { font-size: 12px; color: #94a3b8; }
     .chat-messages {
       flex: 1;
       overflow-y: auto;
@@ -338,113 +534,119 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+      background: #f8fafc;
     }
     .chat-message { display: flex; gap: 10px; max-width: 80%; }
     .chat-message.user { align-self: flex-end; flex-direction: row-reverse; }
     .chat-avatar {
-      width: 36px;
-      height: 36px;
+      width: 34px; height: 34px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 11px;
+      font-weight: 700;
       flex-shrink: 0;
+      color: white;
     }
-    .chat-message.user .chat-avatar { background: #0ea5e9; }
+    .chat-message.user .chat-avatar { background: #0284c7; }
     .chat-message.assistant .chat-avatar { background: #7c3aed; }
     .chat-bubble {
       padding: 12px 16px;
       border-radius: 12px;
       font-size: 14px;
-      line-height: 1.5;
+      line-height: 1.6;
     }
     .chat-message.user .chat-bubble {
-      background: #0ea5e9;
+      background: #0284c7;
       color: white;
       border-radius: 12px 2px 12px 12px;
     }
     .chat-message.assistant .chat-bubble {
-      background: #0f172a;
-      color: #e2e8f0;
+      background: #ffffff;
+      color: #1e293b;
       border-radius: 2px 12px 12px 12px;
+      border: 1px solid #e2e8f0;
     }
     .chat-input-area {
       padding: 16px;
-      border-top: 1px solid #334155;
+      border-top: 1px solid #e2e8f0;
       display: flex;
       gap: 10px;
+      background: #ffffff;
     }
     .chat-input-area input {
       flex: 1;
-      padding: 12px 16px;
-      background: #0f172a;
-      border: 1px solid #334155;
+      padding: 11px 16px;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
       border-radius: 8px;
-      color: #e2e8f0;
+      color: #1e293b;
       font-size: 14px;
     }
     .chat-input-area input:focus {
       outline: none;
-      border-color: #38bdf8;
+      border-color: #0284c7;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(2,132,199,0.12);
     }
     .btn-send {
-      padding: 12px 20px;
-      background: #38bdf8;
-      color: #0f172a;
+      padding: 11px 22px;
+      background: #0284c7;
+      color: #ffffff;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
       font-size: 14px;
     }
+    .btn-send:hover { background: #0369a1; }
     .quick-btns {
       display: flex;
       gap: 8px;
       padding: 0 16px 12px;
       flex-wrap: wrap;
+      background: #ffffff;
     }
     .quick-btn {
       padding: 6px 14px;
-      background: #0f172a;
-      border: 1px solid #334155;
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
       border-radius: 20px;
-      color: #94a3b8;
+      color: #0284c7;
       font-size: 12px;
       cursor: pointer;
       transition: all 0.2s;
+      font-weight: 500;
     }
-    .quick-btn:hover { border-color: #38bdf8; color: #38bdf8; }
+    .quick-btn:hover { background: #0284c7; color: white; border-color: #0284c7; }
 
-    /* ── ALERT ── */
     .alert {
       padding: 12px 16px;
       border-radius: 8px;
       margin-bottom: 16px;
       font-size: 13px;
+      font-weight: 500;
     }
-    .alert.warning {
-      background: #451a03;
-      color: #fb923c;
-      border: 1px solid #92400e;
-    }
-    .alert.success {
-      background: #052e16;
-      color: #22c55e;
-      border: 1px solid #166534;
-    }
-    .alert.error {
-      background: #450a0a;
-      color: #ef4444;
-      border: 1px solid #991b1b;
+    .alert.warning { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+    .alert.success { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+    .alert.error { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+
+    .balance-info {
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: #475569;
     }
 
-    /* ── LOADING ── */
     .spinner {
       display: inline-block;
-      width: 16px; height: 16px;
-      border: 2px solid #334155;
-      border-top-color: #38bdf8;
+      width: 14px; height: 14px;
+      border: 2px solid #e2e8f0;
+      border-top-color: #0284c7;
       border-radius: 50%;
       animation: spin 0.7s linear infinite;
       margin-right: 8px;
@@ -452,18 +654,17 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ── SCROLLBAR ── */
     ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0f172a; }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+    ::-webkit-scrollbar-track { background: #f1f5f9; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
   </style>
 </head>
 <body>
 
-<!-- ══ AUTH SCREEN ══════════════════════════════════════════ -->
+<!-- AUTH SCREEN -->
 <div id="authScreen" class="auth-screen">
   <div class="auth-card">
-    <h2>💰 Expense Tracker</h2>
+    <h2>Expense Tracker</h2>
     <p>Track your finances with AI-powered insights</p>
     <div class="auth-tabs">
       <div class="auth-tab active" onclick="switchAuthTab('login')">Login</div>
@@ -471,116 +672,156 @@
     </div>
     <div id="authAlert"></div>
 
-    <!-- Login Form -->
     <div id="loginForm">
       <div class="form-group">
         <label>Username</label>
-        <input type="text" id="loginUsername" placeholder="Enter username"/>
+        <input type="text" id="loginUsername" placeholder="Enter your username"/>
       </div>
       <div class="form-group">
         <label>Password</label>
-        <input type="password" id="loginPassword" placeholder="Enter password"/>
+        <input type="password" id="loginPassword" placeholder="Enter your password"/>
       </div>
       <button class="btn-primary" onclick="login()">Login</button>
     </div>
 
-    <!-- Register Form -->
     <div id="registerForm" style="display:none">
       <div class="form-group">
         <label>Username</label>
-        <input type="text" id="regUsername" placeholder="Choose username"/>
+        <input type="text" id="regUsername" placeholder="Choose a username (min 3 characters)"/>
       </div>
       <div class="form-group">
         <label>Email</label>
-        <input type="email" id="regEmail" placeholder="Enter email"/>
+        <input type="text" id="regEmail" placeholder="e.g. user@gmail.com"/>
       </div>
       <div class="form-group">
         <label>Password</label>
-        <input type="password" id="regPassword" placeholder="Choose password"/>
+        <input type="password" id="regPassword" placeholder="Minimum 6 characters"/>
       </div>
       <button class="btn-primary" onclick="register()">Create Account</button>
     </div>
   </div>
 </div>
 
-<!-- ══ MAIN APP ══════════════════════════════════════════════ -->
+<!-- MAIN APP -->
 <div id="mainApp" style="display:none">
-  <!-- Navbar -->
   <div class="navbar">
-    <h1>💰 Expense Tracker</h1>
+    <h1>Expense Tracker</h1>
     <div class="nav-user">
       <span id="navUsername"></span>
-      <button class="btn-logout" onclick="logout()">🚪 Logout</button>
+      <button class="btn-logout" onclick="logout()">Logout</button>
     </div>
   </div>
 
   <div class="main-layout">
-    <!-- Sidebar -->
     <div class="sidebar">
-      <div class="sidebar-item active" onclick="showPage('dashboard')">
-        <span class="icon">📊</span> Dashboard
-      </div>
-      <div class="sidebar-item" onclick="showPage('add')">
-        <span class="icon">➕</span> Add Transaction
-      </div>
-      <div class="sidebar-item" onclick="showPage('transactions')">
-        <span class="icon">📋</span> Transactions
-      </div>
-      <div class="sidebar-item" onclick="showPage('chatbot')">
-        <span class="icon">🤖</span> AI Chatbot
-      </div>
+      <div class="sidebar-item active" onclick="showPage('dashboard')">Dashboard</div>
+      <div class="sidebar-item" onclick="showPage('add')">Add Transaction</div>
+      <div class="sidebar-item" onclick="showPage('transactions')">Transactions</div>
+      <div class="sidebar-item" onclick="showPage('calendar')">Calendar</div>
+      <div class="sidebar-item" onclick="showPage('chatbot')">AI Chatbot</div>
     </div>
 
-    <!-- Content -->
     <div class="content">
 
-      <!-- ── DASHBOARD PAGE ── -->
+      <!-- DASHBOARD -->
       <div id="page-dashboard" class="page active">
-        <h2 style="margin-bottom:24px; color:#38bdf8">📊 Dashboard</h2>
+
+        <!-- Welcome Banner -->
+        <div class="welcome-banner">
+          <div>
+            <h2 id="welcomeText">Welcome back!</h2>
+            <p id="welcomeSub">Here is your financial summary for today.</p>
+          </div>
+          <div class="date-display" id="todayDate"></div>
+        </div>
+
         <div id="dashAlert"></div>
+        <div id="smartAlerts" style="margin-bottom:20px;"></div>
+
+        <!-- Metric Cards -->
         <div class="metrics-grid">
           <div class="metric-card">
-            <div class="label">💵 Total Income</div>
+            <div class="label">Total Income</div>
             <div class="value income" id="metricIncome">$0.00</div>
           </div>
           <div class="metric-card">
-            <div class="label">💸 Total Expenses</div>
+            <div class="label">Total Expenses</div>
             <div class="value expense" id="metricExpense">$0.00</div>
           </div>
           <div class="metric-card">
-            <div class="label">🏦 Balance</div>
+            <div class="label">Balance</div>
             <div class="value balance" id="metricBalance">$0.00</div>
           </div>
           <div class="metric-card">
-            <div class="label">📝 Transactions</div>
+            <div class="label">Transactions</div>
             <div class="value" id="metricCount">0</div>
           </div>
         </div>
+
+        <!-- Top Insights -->
+        <div style="font-size:15px; font-weight:700; color:#1e293b; margin-bottom:14px;">Top Insights</div>
+        <div class="insights-grid">
+          <div class="insight-card green">
+            <div class="insight-label">Savings Rate</div>
+            <div class="insight-value" id="insightSavingsRate">0%</div>
+            <div class="insight-sub">Percentage of income saved</div>
+          </div>
+          <div class="insight-card red">
+            <div class="insight-label">Biggest Expense Category</div>
+            <div class="insight-value" id="insightTopCategory">—</div>
+            <div class="insight-sub" id="insightTopCategoryAmt">No expenses yet</div>
+          </div>
+          <div class="insight-card blue">
+            <div class="insight-label">Average Transaction</div>
+            <div class="insight-value" id="insightAvgTx">$0.00</div>
+            <div class="insight-sub">Per transaction amount</div>
+          </div>
+          <div class="insight-card orange">
+            <div class="insight-label">Highest Expense</div>
+            <div class="insight-value" id="insightHighest">$0.00</div>
+            <div class="insight-sub" id="insightHighestTitle">No expenses yet</div>
+          </div>
+          <div class="insight-card purple">
+            <div class="insight-label">This Month Spending</div>
+            <div class="insight-value" id="insightMonthSpend">$0.00</div>
+            <div class="insight-sub" id="insightMonthName">Current month</div>
+          </div>
+          <div class="insight-card green">
+            <div class="insight-label">Total Transactions</div>
+            <div class="insight-value" id="insightTotalTx">0</div>
+            <div class="insight-sub" id="insightTxBreakdown">0 income / 0 expense</div>
+          </div>
+        </div>
+
+        <!-- Charts -->
         <div class="charts-grid">
           <div class="chart-card">
-            <h3>🍩 Expenses by Category</h3>
+            <h3>Expenses by Category</h3>
             <div id="pieChart"></div>
           </div>
           <div class="chart-card">
-            <h3>📊 Income vs Expense</h3>
+            <h3>Income vs Expense</h3>
             <div id="barChart"></div>
           </div>
           <div class="chart-card">
-            <h3>📅 Monthly Trend</h3>
+            <h3>Monthly Trend</h3>
             <div id="lineChart"></div>
           </div>
           <div class="chart-card">
-            <h3>📉 Top Expense Categories</h3>
+            <h3>Top Expense Categories</h3>
             <div id="hbarChart"></div>
           </div>
         </div>
       </div>
 
-      <!-- ── ADD TRANSACTION PAGE ── -->
+      <!-- ADD TRANSACTION -->
       <div id="page-add" class="page">
         <div class="add-form-card">
-          <h2>➕ Add New Transaction</h2>
+          <h2>Add New Transaction</h2>
           <div id="addAlert"></div>
+          <div class="balance-info">
+            Current Balance: <strong id="currentBalanceDisplay" style="color:#0284c7;">$0.00</strong>
+          </div>
           <div class="form-row">
             <div class="form-group">
               <label>Title *</label>
@@ -594,7 +835,7 @@
           <div class="form-row">
             <div class="form-group">
               <label>Type *</label>
-              <select id="addType">
+              <select id="addType" onchange="updateBalanceDisplay()">
                 <option value="expense">Expense</option>
                 <option value="income">Income</option>
               </select>
@@ -618,14 +859,14 @@
             <label>Description (optional)</label>
             <textarea id="addDesc" rows="3" placeholder="Add any notes..."></textarea>
           </div>
-          <button class="btn-primary" onclick="addTransaction()">✅ Add Transaction</button>
+          <button class="btn-primary" onclick="addTransaction()">Add Transaction</button>
         </div>
       </div>
 
-      <!-- ── TRANSACTIONS PAGE ── -->
+      <!-- TRANSACTIONS -->
       <div id="page-transactions" class="page">
         <div class="table-card">
-          <h3>📋 All Transactions</h3>
+          <h3>All Transactions</h3>
           <div class="filters">
             <select id="filterType" onchange="renderTable()">
               <option value="all">All Types</option>
@@ -655,38 +896,57 @@
             </thead>
             <tbody id="transactionTableBody"></tbody>
           </table>
-          <p id="tableCaption" style="margin-top:12px; color:#64748b; font-size:12px;"></p>
+          <p id="tableCaption" style="margin-top:12px; color:#94a3b8; font-size:12px;"></p>
         </div>
       </div>
 
-      <!-- ── CHATBOT PAGE ── -->
+      <!-- CALENDAR -->
+      <div id="page-calendar" class="page">
+        <div class="page-heading">Calendar</div>
+        <div class="calendar-card">
+          <div class="calendar-header">
+            <h3 id="calMonthTitle">June 2026</h3>
+            <div class="cal-nav">
+              <button onclick="changeMonth(-1)">Prev</button>
+              <button onclick="changeMonth(1)">Next</button>
+            </div>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+          <div class="day-transactions" id="dayTransactions" style="display:none;">
+            <h4 id="dayTransTitle">Transactions</h4>
+            <div id="dayTransList"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHATBOT -->
       <div id="page-chatbot" class="page">
         <div class="chat-container">
           <div class="chat-header">
-            <span style="font-size:24px">🤖</span>
+            <div class="chat-header-icon">AI</div>
             <div>
               <h3>AI Financial Assistant</h3>
-              <p>Powered by Cohere — Ask anything about your finances!</p>
+              <p>Powered by Cohere — Ask anything about your finances</p>
             </div>
           </div>
           <div class="chat-messages" id="chatMessages">
             <div class="chat-message assistant">
-              <div class="chat-avatar">🤖</div>
+              <div class="chat-avatar">AI</div>
               <div class="chat-bubble">
-                Hi! I'm your AI financial assistant. Ask me anything about your spending, savings, or financial habits! 💰
+                Hello! I am your AI financial assistant. Ask me anything about your spending, savings, or financial habits.
               </div>
             </div>
           </div>
           <div class="quick-btns">
-            <button class="quick-btn" onclick="sendQuick('Analyze my spending habits')">📊 Analyze spending</button>
-            <button class="quick-btn" onclick="sendQuick('How can I save more money?')">💡 Save money tips</button>
-            <button class="quick-btn" onclick="sendQuick('Do I have unusual spending?')">⚠️ Check anomalies</button>
-            <button class="quick-btn" onclick="sendQuick('Give me a monthly budget plan')">📅 Budget plan</button>
+            <button class="quick-btn" onclick="sendQuick('Analyze my spending habits')">Analyze spending</button>
+            <button class="quick-btn" onclick="sendQuick('How can I save more money?')">Save money tips</button>
+            <button class="quick-btn" onclick="sendQuick('Do I have unusual spending?')">Check anomalies</button>
+            <button class="quick-btn" onclick="sendQuick('Give me a monthly budget plan')">Budget plan</button>
           </div>
           <div class="chat-input-area">
             <input type="text" id="chatInput" placeholder="Ask your financial assistant..."
               onkeypress="if(event.key==='Enter') sendMessage()"/>
-            <button class="btn-send" onclick="sendMessage()">Send ➤</button>
+            <button class="btn-send" onclick="sendMessage()">Send</button>
           </div>
         </div>
       </div>
@@ -696,12 +956,13 @@
 </div>
 
 <script>
-  const BASE = "http://localhost:8000";
+  const BASE = "http://127.0.0.1:8000";
   let token = localStorage.getItem("token");
   let username = localStorage.getItem("username");
   let allTransactions = [];
+  let calYear = new Date().getFullYear();
+  let calMonth = new Date().getMonth();
 
-  // ── INIT ──────────────────────────────────────────────────
   window.onload = () => {
     if (token) showApp();
     else showAuth();
@@ -715,11 +976,10 @@
   function showApp() {
     document.getElementById("authScreen").style.display = "none";
     document.getElementById("mainApp").style.display = "block";
-    document.getElementById("navUsername").textContent = `👤 ${username}`;
+    document.getElementById("navUsername").textContent = username;
     loadDashboard();
   }
 
-  // ── AUTH TABS ─────────────────────────────────────────────
   function switchAuthTab(tab) {
     document.querySelectorAll(".auth-tab").forEach((t, i) => {
       t.classList.toggle("active", (i === 0 && tab === "login") || (i === 1 && tab === "register"));
@@ -729,16 +989,13 @@
     document.getElementById("authAlert").innerHTML = "";
   }
 
-  // ── LOGIN ─────────────────────────────────────────────────
   async function login() {
-    const u = document.getElementById("loginUsername").value;
+    const u = document.getElementById("loginUsername").value.trim();
     const p = document.getElementById("loginPassword").value;
     if (!u || !p) return showAlert("authAlert", "Please fill all fields", "warning");
-
     const form = new FormData();
     form.append("username", u);
     form.append("password", p);
-
     try {
       const res = await fetch(`${BASE}/auth/login`, { method: "POST", body: form });
       const data = await res.json();
@@ -756,13 +1013,15 @@
     }
   }
 
-  // ── REGISTER ──────────────────────────────────────────────
   async function register() {
-    const u = document.getElementById("regUsername").value;
-    const e = document.getElementById("regEmail").value;
+    const u = document.getElementById("regUsername").value.trim();
+    const e = document.getElementById("regEmail").value.trim();
     const p = document.getElementById("regPassword").value;
     if (!u || !e || !p) return showAlert("authAlert", "Please fill all fields", "warning");
-
+    if (u.length < 3) return showAlert("authAlert", "Username must be at least 3 characters", "warning");
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(e)) return showAlert("authAlert", "Invalid email format. Please use a valid email like user@gmail.com", "error");
+    if (p.length < 6) return showAlert("authAlert", "Password must be at least 6 characters", "warning");
     try {
       const res = await fetch(`${BASE}/auth/register`, {
         method: "POST",
@@ -771,17 +1030,17 @@
       });
       const data = await res.json();
       if (res.ok) {
-        showAlert("authAlert", "Registered! Please login.", "success");
+        showAlert("authAlert", "Registered successfully! Please login.", "success");
         switchAuthTab("login");
       } else {
-        showAlert("authAlert", data.detail || "Registration failed", "error");
+        const msg = data.detail;
+        showAlert("authAlert", Array.isArray(msg) ? msg[0].msg : (msg || "Registration failed"), "error");
       }
     } catch {
       showAlert("authAlert", "Cannot connect to backend. Is it running?", "error");
     }
   }
 
-  // ── LOGOUT ────────────────────────────────────────────────
   function logout() {
     token = null; username = null;
     localStorage.removeItem("token");
@@ -789,18 +1048,17 @@
     showAuth();
   }
 
-  // ── NAVIGATION ────────────────────────────────────────────
   function showPage(page) {
     document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
     document.querySelectorAll(".sidebar-item").forEach(s => s.classList.remove("active"));
     document.getElementById(`page-${page}`).classList.add("active");
     event.currentTarget.classList.add("active");
-
     if (page === "transactions") renderTable();
     if (page === "chatbot") loadChatHistory();
+    if (page === "add") updateBalanceDisplay();
+    if (page === "calendar") renderCalendar();
   }
 
-  // ── FETCH TRANSACTIONS ────────────────────────────────────
   async function fetchTransactions() {
     try {
       const res = await fetch(`${BASE}/transactions/`, {
@@ -810,10 +1068,25 @@
     } catch { allTransactions = []; }
   }
 
-  // ── DASHBOARD ─────────────────────────────────────────────
+  function updateBalanceDisplay() {
+    const income = allTransactions.filter(t => t.type === "income").reduce((s, t) => s + t.amount, 0);
+    const expense = allTransactions.filter(t => t.type === "expense").reduce((s, t) => s + t.amount, 0);
+    const balance = income - expense;
+    const display = document.getElementById("currentBalanceDisplay");
+    display.textContent = `$${balance.toFixed(2)}`;
+    display.style.color = balance <= 0 ? "#dc2626" : "#0284c7";
+  }
+
   async function loadDashboard() {
     await fetchTransactions();
     const data = allTransactions;
+
+    // Welcome banner
+    const now = new Date();
+    const hour = now.getHours();
+    const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+    document.getElementById("welcomeText").textContent = `${greeting}, ${username}!`;
+    document.getElementById("todayDate").textContent = now.toLocaleDateString("en-US", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
 
     const income = data.filter(t => t.type === "income").reduce((s, t) => s + t.amount, 0);
     const expense = data.filter(t => t.type === "expense").reduce((s, t) => s + t.amount, 0);
@@ -824,77 +1097,199 @@
     document.getElementById("metricBalance").textContent = `$${balance.toFixed(2)}`;
     document.getElementById("metricCount").textContent = data.length;
 
-    // Anomaly alert
-    if (data.length > 0) {
-      const amounts = data.map(t => t.amount);
-      const mean = amounts.reduce((a, b) => a + b, 0) / amounts.length;
-      const std = Math.sqrt(amounts.map(x => Math.pow(x - mean, 2)).reduce((a, b) => a + b, 0) / amounts.length);
-      const anomalies = data.filter(t => t.amount > mean + 2 * std);
-      if (anomalies.length > 0) {
-        showAlert("dashAlert", `⚠️ ${anomalies.length} unusual transaction(s) detected: ${anomalies.map(a => a.title).join(", ")}`, "warning");
-      }
-    }
-
+    renderInsights(data, income, expense);
     renderCharts(data);
+    loadSmartAlerts();
   }
 
-  // ── CHARTS ────────────────────────────────────────────────
-  function renderCharts(data) {
-    const plotConfig = { displayModeBar: false, responsive: true };
-    const plotLayout = { paper_bgcolor: "#1e293b", plot_bgcolor: "#1e293b",
-      font: { color: "#94a3b8", size: 12 }, margin: { t: 10, b: 40, l: 40, r: 10 } };
+  function renderInsights(data, income, expense) {
+    // Savings rate
+    const savingsRate = income > 0 ? Math.round(((income - expense) / income) * 100) : 0;
+    document.getElementById("insightSavingsRate").textContent = `${savingsRate}%`;
+    document.getElementById("insightSavingsRate").style.color = savingsRate >= 20 ? "#16a34a" : savingsRate >= 0 ? "#d97706" : "#dc2626";
 
-    // Pie chart
+    // Biggest expense category
+    const expenseData = data.filter(t => t.type === "expense");
+    if (expenseData.length > 0) {
+      const catMap = {};
+      expenseData.forEach(t => catMap[t.category] = (catMap[t.category] || 0) + t.amount);
+      const topCat = Object.entries(catMap).sort((a, b) => b[1] - a[1])[0];
+      document.getElementById("insightTopCategory").textContent = topCat[0];
+      document.getElementById("insightTopCategoryAmt").textContent = `$${topCat[1].toFixed(2)} spent`;
+    } else {
+      document.getElementById("insightTopCategory").textContent = "—";
+      document.getElementById("insightTopCategoryAmt").textContent = "No expenses yet";
+    }
+
+    // Average transaction
+    const avg = data.length > 0 ? data.reduce((s, t) => s + t.amount, 0) / data.length : 0;
+    document.getElementById("insightAvgTx").textContent = `$${avg.toFixed(2)}`;
+
+    // Highest expense
+    if (expenseData.length > 0) {
+      const highest = expenseData.reduce((max, t) => t.amount > max.amount ? t : max, expenseData[0]);
+      document.getElementById("insightHighest").textContent = `$${highest.amount.toFixed(2)}`;
+      document.getElementById("insightHighestTitle").textContent = highest.title;
+    } else {
+      document.getElementById("insightHighest").textContent = "$0.00";
+      document.getElementById("insightHighestTitle").textContent = "No expenses yet";
+    }
+
+    // This month spending
+    const nowMonth = new Date().toISOString().slice(0, 7);
+    const monthSpend = expenseData.filter(t => t.date && t.date.slice(0, 7) === nowMonth).reduce((s, t) => s + t.amount, 0);
+    document.getElementById("insightMonthSpend").textContent = `$${monthSpend.toFixed(2)}`;
+    document.getElementById("insightMonthName").textContent = new Date().toLocaleDateString("en-US", { month: "long", year: "numeric" });
+
+    // Total transactions breakdown
+    const incomeCount = data.filter(t => t.type === "income").length;
+    const expenseCount = data.filter(t => t.type === "expense").length;
+    document.getElementById("insightTotalTx").textContent = data.length;
+    document.getElementById("insightTxBreakdown").textContent = `${incomeCount} income / ${expenseCount} expense`;
+  }
+
+  async function loadSmartAlerts() {
+    try {
+      const res = await fetch(`${BASE}/transactions/alerts`, {
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const alerts = await res.json();
+        const container = document.getElementById("smartAlerts");
+        if (alerts.length === 0) {
+          container.innerHTML = `<div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:10px; padding:14px 18px; color:#16a34a; font-size:13px; font-weight:600;">All good! No financial alerts at this time.</div>`;
+        } else {
+          container.innerHTML = alerts.map(a => `
+            <div style="background:${a.type==='danger'?'#fef2f2':'#fffbeb'}; border:1px solid ${a.type==='danger'?'#fecaca':'#fde68a'}; border-radius:10px; padding:14px 18px; margin-bottom:10px; display:flex; align-items:flex-start; gap:12px;">
+              <div style="width:34px;height:34px;background:${a.type==='danger'?'#fee2e2':'#fef9c3'};border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:${a.type==='danger'?'#dc2626':'#d97706'};font-size:13px;flex-shrink:0;">${a.type==='danger'?'!':'i'}</div>
+              <div>
+                <div style="font-weight:700;color:${a.type==='danger'?'#dc2626':'#d97706'};font-size:14px;margin-bottom:4px;">${a.title}</div>
+                <div style="color:#64748b;font-size:13px;">${a.message}</div>
+              </div>
+            </div>`).join("");
+        }
+      }
+    } catch(e) { console.log("Alert error:", e); }
+  }
+
+  function renderCharts(data) {
+    const cfg = { displayModeBar: false, responsive: true };
+    const lay = { paper_bgcolor: "#ffffff", plot_bgcolor: "#ffffff", font: { color: "#64748b", size: 12 }, margin: { t: 10, b: 40, l: 40, r: 10 } };
     const expenses = data.filter(t => t.type === "expense");
     const catMap = {};
     expenses.forEach(t => catMap[t.category] = (catMap[t.category] || 0) + t.amount);
-    Plotly.newPlot("pieChart", [{
-      type: "pie", labels: Object.keys(catMap), values: Object.values(catMap),
-      hole: 0.45, textinfo: "label+percent",
-      marker: { colors: ["#38bdf8","#22c55e","#f59e0b","#ef4444","#8b5cf6","#ec4899","#14b8a6","#f97316"] }
-    }], { ...plotLayout, showlegend: false }, plotConfig);
-
-    // Bar chart
-    const categories = [...new Set(data.map(t => t.category))];
-    const incomeBycat = categories.map(c => data.filter(t => t.type==="income" && t.category===c).reduce((s,t)=>s+t.amount,0));
-    const expenseBycat = categories.map(c => data.filter(t => t.type==="expense" && t.category===c).reduce((s,t)=>s+t.amount,0));
+    Plotly.newPlot("pieChart", [{ type: "pie", labels: Object.keys(catMap), values: Object.values(catMap), hole: 0.45, textinfo: "label+percent", marker: { colors: ["#38bdf8","#22c55e","#f59e0b","#ef4444","#8b5cf6","#ec4899","#14b8a6","#f97316"] } }], { ...lay, showlegend: false }, cfg);
+    const cats = [...new Set(data.map(t => t.category))];
     Plotly.newPlot("barChart", [
-      { name: "Income", x: categories, y: incomeBycat, type: "bar", marker: { color: "#22c55e" } },
-      { name: "Expense", x: categories, y: expenseBycat, type: "bar", marker: { color: "#ef4444" } }
-    ], { ...plotLayout, barmode: "group", legend: { font: { color: "#94a3b8" } } }, plotConfig);
-
-    // Line chart
-    const monthMap = {};
-    data.forEach(t => {
-      const m = t.date.slice(0, 7);
-      if (!monthMap[m]) monthMap[m] = { income: 0, expense: 0 };
-      monthMap[m][t.type] += t.amount;
-    });
-    const months = Object.keys(monthMap).sort();
+      { name: "Income", x: cats, y: cats.map(c => data.filter(t=>t.type==="income"&&t.category===c).reduce((s,t)=>s+t.amount,0)), type: "bar", marker: { color: "#22c55e" } },
+      { name: "Expense", x: cats, y: cats.map(c => data.filter(t=>t.type==="expense"&&t.category===c).reduce((s,t)=>s+t.amount,0)), type: "bar", marker: { color: "#ef4444" } }
+    ], { ...lay, barmode: "group", legend: { font: { color: "#64748b" } } }, cfg);
+    const mm = {};
+    data.forEach(t => { const m = t.date.slice(0,7); if (!mm[m]) mm[m]={income:0,expense:0}; mm[m][t.type]+=t.amount; });
+    const months = Object.keys(mm).sort();
     Plotly.newPlot("lineChart", [
-      { name: "Income", x: months, y: months.map(m => monthMap[m].income), type: "scatter", mode: "lines+markers", marker: { color: "#22c55e" }, line: { color: "#22c55e" } },
-      { name: "Expense", x: months, y: months.map(m => monthMap[m].expense), type: "scatter", mode: "lines+markers", marker: { color: "#ef4444" }, line: { color: "#ef4444" } }
-    ], { ...plotLayout, legend: { font: { color: "#94a3b8" } } }, plotConfig);
+      { name: "Income", x: months, y: months.map(m=>mm[m].income), type: "scatter", mode: "lines+markers", marker:{color:"#22c55e"}, line:{color:"#22c55e"} },
+      { name: "Expense", x: months, y: months.map(m=>mm[m].expense), type: "scatter", mode: "lines+markers", marker:{color:"#ef4444"}, line:{color:"#ef4444"} }
+    ], { ...lay, legend: { font: { color: "#64748b" } } }, cfg);
+    const sc = Object.entries(catMap).sort((a,b)=>b[1]-a[1]);
+    Plotly.newPlot("hbarChart", [{ type:"bar", orientation:"h", x:sc.map(c=>c[1]), y:sc.map(c=>c[0]), marker:{ color:"#0284c7", opacity:0.85 } }], { ...lay }, cfg);
+  }
 
-    // Horizontal bar
-    const sortedCats = Object.entries(catMap).sort((a, b) => b[1] - a[1]);
-    Plotly.newPlot("hbarChart", [{
-      type: "bar", orientation: "h",
-      x: sortedCats.map(c => c[1]), y: sortedCats.map(c => c[0]),
-      marker: { color: "#ef4444", opacity: 0.8 }
-    }], { ...plotLayout }, plotConfig);
+  // ── CALENDAR ──────────────────────────────────────────────
+  function renderCalendar() {
+    const monthNames = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    document.getElementById("calMonthTitle").textContent = `${monthNames[calMonth]} ${calYear}`;
+    const grid = document.getElementById("calGrid");
+    const today = new Date();
+    const firstDay = new Date(calYear, calMonth, 1).getDay();
+    const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+
+    // Build transaction map by date
+    const txByDate = {};
+    allTransactions.forEach(t => {
+      if (!t.date) return;
+      const d = t.date.slice(0, 10);
+      if (!txByDate[d]) txByDate[d] = [];
+      txByDate[d].push(t);
+    });
+
+    let html = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(d => `<div class="cal-day-name">${d}</div>`).join("");
+
+    // Empty cells before first day
+    for (let i = 0; i < firstDay; i++) {
+      html += `<div class="cal-day empty"></div>`;
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dateStr = `${calYear}-${String(calMonth+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+      const txs = txByDate[dateStr] || [];
+      const isToday = today.getDate() === d && today.getMonth() === calMonth && today.getFullYear() === calYear;
+      const hasIncome = txs.some(t => t.type === "income");
+      const hasExpense = txs.some(t => t.type === "expense");
+      const dots = (hasIncome ? `<span class="cal-dot income"></span>` : "") + (hasExpense ? `<span class="cal-dot expense"></span>` : "");
+      html += `<div class="cal-day ${isToday ? "today" : ""} ${txs.length > 0 ? "has-transaction" : ""}" onclick="showDayTransactions('${dateStr}')">
+        <span>${d}</span>
+        <div class="cal-dots">${dots}</div>
+      </div>`;
+    }
+
+    grid.innerHTML = html;
+  }
+
+  function showDayTransactions(dateStr) {
+    // Highlight selected day
+    document.querySelectorAll(".cal-day").forEach(el => el.classList.remove("selected"));
+    event.currentTarget.classList.add("selected");
+
+    const txs = allTransactions.filter(t => t.date && t.date.slice(0,10) === dateStr);
+    const panel = document.getElementById("dayTransactions");
+    const title = document.getElementById("dayTransTitle");
+    const list = document.getElementById("dayTransList");
+
+    title.textContent = `Transactions on ${new Date(dateStr + "T00:00:00").toLocaleDateString("en-US", { weekday:"long", month:"long", day:"numeric", year:"numeric" })}`;
+
+    if (txs.length === 0) {
+      list.innerHTML = `<div style="color:#94a3b8; font-size:13px; padding:8px 0;">No transactions on this date.</div>`;
+    } else {
+      list.innerHTML = txs.map(t => `
+        <div class="day-tx-item">
+          <div>
+            <div class="day-tx-title">${t.title}</div>
+            <div class="day-tx-cat">${t.category}</div>
+          </div>
+          <div class="day-tx-amount ${t.type}">
+            ${t.type === "income" ? "+" : "-"}$${t.amount.toFixed(2)}
+          </div>
+        </div>`).join("");
+    }
+    panel.style.display = "block";
+  }
+
+  function changeMonth(dir) {
+    calMonth += dir;
+    if (calMonth > 11) { calMonth = 0; calYear++; }
+    if (calMonth < 0) { calMonth = 11; calYear--; }
+    document.getElementById("dayTransactions").style.display = "none";
+    renderCalendar();
   }
 
   // ── ADD TRANSACTION ───────────────────────────────────────
   async function addTransaction() {
-    const title = document.getElementById("addTitle").value;
+    const title = document.getElementById("addTitle").value.trim();
     const amount = parseFloat(document.getElementById("addAmount").value);
     const type = document.getElementById("addType").value;
     const category = document.getElementById("addCategory").value;
     const description = document.getElementById("addDesc").value;
-
-    if (!title || !amount) return showAlert("addAlert", "Please fill Title and Amount", "warning");
-
+    if (!title) return showAlert("addAlert", "Please enter a title", "warning");
+    if (!amount || amount <= 0) return showAlert("addAlert", "Please enter a valid amount greater than zero", "warning");
+    if (type === "expense") {
+      const income = allTransactions.filter(t => t.type === "income").reduce((s, t) => s + t.amount, 0);
+      const expense = allTransactions.filter(t => t.type === "expense").reduce((s, t) => s + t.amount, 0);
+      const currentBalance = income - expense;
+      if (amount > currentBalance) {
+        return showAlert("addAlert", `Insufficient balance. Your current balance is $${currentBalance.toFixed(2)} but you are trying to add an expense of $${amount.toFixed(2)}.`, "error");
+      }
+    }
     try {
       const res = await fetch(`${BASE}/transactions/`, {
         method: "POST",
@@ -902,75 +1297,57 @@
         body: JSON.stringify({ title, amount, type, category, description })
       });
       if (res.ok) {
-        showAlert("addAlert", `✅ Transaction '${title}' added!`, "success");
+        showAlert("addAlert", `Transaction '${title}' added successfully.`, "success");
         document.getElementById("addTitle").value = "";
         document.getElementById("addAmount").value = "";
         document.getElementById("addDesc").value = "";
         await loadDashboard();
+        updateBalanceDisplay();
       } else {
-        showAlert("addAlert", "Failed to add transaction", "error");
+        const data = await res.json();
+        showAlert("addAlert", data.detail || "Failed to add transaction", "error");
       }
     } catch {
       showAlert("addAlert", "Cannot connect to backend", "error");
     }
   }
 
-  // ── RENDER TABLE ──────────────────────────────────────────
   function renderTable() {
     let data = [...allTransactions];
-    const filterType = document.getElementById("filterType").value;
-    const filterCat = document.getElementById("filterCategory").value;
-    const sortBy = document.getElementById("sortBy").value;
-
-    if (filterType !== "all") data = data.filter(t => t.type === filterType);
-    if (filterCat !== "all") data = data.filter(t => t.category === filterCat);
-    data.sort((a, b) => sortBy === "amount" ? b.amount - a.amount : sortBy === "category" ? a.category.localeCompare(b.category) : new Date(b.date) - new Date(a.date));
-
-    const tbody = document.getElementById("transactionTableBody");
-    tbody.innerHTML = data.map(t => `
+    const ft = document.getElementById("filterType").value;
+    const fc = document.getElementById("filterCategory").value;
+    const sb = document.getElementById("sortBy").value;
+    if (ft !== "all") data = data.filter(t => t.type === ft);
+    if (fc !== "all") data = data.filter(t => t.category === fc);
+    data.sort((a,b) => sb==="amount"?b.amount-a.amount:sb==="category"?a.category.localeCompare(b.category):new Date(b.date)-new Date(a.date));
+    document.getElementById("transactionTableBody").innerHTML = data.map(t => `
       <tr>
         <td>${t.title}</td>
-        <td style="color:${t.type==='income'?'#22c55e':'#ef4444'}">$${t.amount.toFixed(2)}</td>
+        <td style="color:${t.type==='income'?'#16a34a':'#dc2626'};font-weight:600;">$${t.amount.toFixed(2)}</td>
         <td><span class="badge ${t.type}">${t.type}</span></td>
         <td>${t.category}</td>
         <td>${t.date ? t.date.slice(0,10) : ""}</td>
-        <td><button class="btn-danger" onclick="deleteTransaction(${t.id})">🗑️</button></td>
-      </tr>
-    `).join("");
+        <td><button class="btn-danger" onclick="deleteTransaction(${t.id})">Delete</button></td>
+      </tr>`).join("");
     document.getElementById("tableCaption").textContent = `Showing ${data.length} of ${allTransactions.length} transactions`;
   }
 
-  // ── DELETE TRANSACTION ────────────────────────────────────
   async function deleteTransaction(id) {
-    if (!confirm("Delete this transaction?")) return;
-    const res = await fetch(`${BASE}/transactions/${id}`, {
-      method: "DELETE",
-      headers: { "Authorization": `Bearer ${token}` }
-    });
-    if (res.ok) {
-      await fetchTransactions();
-      renderTable();
-      loadDashboard();
-    }
+    if (!confirm("Are you sure you want to delete this transaction?")) return;
+    const res = await fetch(`${BASE}/transactions/${id}`, { method: "DELETE", headers: { "Authorization": `Bearer ${token}` } });
+    if (res.ok) { await fetchTransactions(); renderTable(); loadDashboard(); }
   }
 
-  // ── CHAT ──────────────────────────────────────────────────
   async function loadChatHistory() {
     try {
-      const res = await fetch(`${BASE}/chat/history`, {
-        headers: { "Authorization": `Bearer ${token}` }
-      });
+      const res = await fetch(`${BASE}/chat/history`, { headers: { "Authorization": `Bearer ${token}` } });
       if (res.ok) {
         const history = await res.json();
-        const container = document.getElementById("chatMessages");
-        container.innerHTML = history.length === 0 ?
-          `<div class="chat-message assistant"><div class="chat-avatar">🤖</div><div class="chat-bubble">Hi! I'm your AI financial assistant. Ask me anything! 💰</div></div>` :
-          history.map(m => `
-            <div class="chat-message ${m.role}">
-              <div class="chat-avatar">${m.role === "user" ? "👤" : "🤖"}</div>
-              <div class="chat-bubble">${m.message}</div>
-            </div>`).join("");
-        container.scrollTop = container.scrollHeight;
+        const c = document.getElementById("chatMessages");
+        c.innerHTML = history.length === 0
+          ? `<div class="chat-message assistant"><div class="chat-avatar">AI</div><div class="chat-bubble">Hello! I am your AI financial assistant. Ask me anything about your finances.</div></div>`
+          : history.map(m => `<div class="chat-message ${m.role}"><div class="chat-avatar">${m.role==="user"?"You":"AI"}</div><div class="chat-bubble">${m.message}</div></div>`).join("");
+        c.scrollTop = c.scrollHeight;
       }
     } catch {}
   }
@@ -986,18 +1363,11 @@
   async function sendQuick(msg) { await sendChat(msg); }
 
   async function sendChat(msg) {
-    const container = document.getElementById("chatMessages");
-    container.innerHTML += `
-      <div class="chat-message user">
-        <div class="chat-avatar">👤</div>
-        <div class="chat-bubble">${msg}</div>
-      </div>
-      <div class="chat-message assistant" id="typingIndicator">
-        <div class="chat-avatar">🤖</div>
-        <div class="chat-bubble"><span class="spinner"></span>Thinking...</div>
-      </div>`;
-    container.scrollTop = container.scrollHeight;
-
+    const c = document.getElementById("chatMessages");
+    c.innerHTML += `
+      <div class="chat-message user"><div class="chat-avatar">You</div><div class="chat-bubble">${msg}</div></div>
+      <div class="chat-message assistant" id="typingIndicator"><div class="chat-avatar">AI</div><div class="chat-bubble"><span class="spinner"></span>Thinking...</div></div>`;
+    c.scrollTop = c.scrollHeight;
     try {
       const res = await fetch(`${BASE}/chat/`, {
         method: "POST",
@@ -1007,23 +1377,18 @@
       document.getElementById("typingIndicator")?.remove();
       if (res.ok) {
         const data = await res.json();
-        container.innerHTML += `
-          <div class="chat-message assistant">
-            <div class="chat-avatar">🤖</div>
-            <div class="chat-bubble">${data.response}</div>
-          </div>`;
-        container.scrollTop = container.scrollHeight;
+        c.innerHTML += `<div class="chat-message assistant"><div class="chat-avatar">AI</div><div class="chat-bubble">${data.response}</div></div>`;
+        c.scrollTop = c.scrollHeight;
       }
     } catch {
       document.getElementById("typingIndicator")?.remove();
-      container.innerHTML += `<div class="chat-message assistant"><div class="chat-avatar">🤖</div><div class="chat-bubble" style="color:#ef4444">Error connecting to AI service.</div></div>`;
+      c.innerHTML += `<div class="chat-message assistant"><div class="chat-avatar">AI</div><div class="chat-bubble" style="color:#dc2626">Error connecting to AI service.</div></div>`;
     }
   }
 
-  // ── ALERT HELPER ──────────────────────────────────────────
   function showAlert(id, msg, type) {
     document.getElementById(id).innerHTML = `<div class="alert ${type}">${msg}</div>`;
-    setTimeout(() => { document.getElementById(id).innerHTML = ""; }, 4000);
+    setTimeout(() => { document.getElementById(id).innerHTML = ""; }, 5000);
   }
 </script>
 </body>

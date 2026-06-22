@@ -31,7 +31,7 @@ Keep responses concise and friendly."""
         response = co.chat(
             message=user_message,
             preamble=system_prompt,
-            model="command-r-plus",
+            model="command-r-plus-08-2024",
             temperature=0.3
         )
         return response.text
